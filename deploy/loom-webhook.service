@@ -1,0 +1,16 @@
+[Unit]
+Description=Loom GitHub Webhook Listener
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/loom/.venv/bin/python3 /opt/loom/deploy/webhook.py CHANGE_THIS_SECRET
+WorkingDirectory=/opt/loom
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=loom-webhook
+
+[Install]
+WantedBy=multi-user.target

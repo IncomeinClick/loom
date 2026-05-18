@@ -1,0 +1,38 @@
+# Environment
+.env
+.env.local
+
+# Operator-specific configs (each install has their own pages/workflows/credentials)
+data/configs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Database
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Generated assets (tracked separately if needed)
+data/assets/
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Operator-only scripts (e.g. personal cron jobs not part of the shared codebase)
+scripts/morning_check.py

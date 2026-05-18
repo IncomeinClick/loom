@@ -1,0 +1,63 @@
+/* Loom — Custom styles (minimal, TailwindCSS handles most) */
+
+/* Step diagram connector lines */
+.step-connector {
+    position: relative;
+}
+.step-connector::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -1.5rem;
+    width: 1.5rem;
+    height: 2px;
+    background-color: #d1d5db;
+}
+.step-connector:last-child::after {
+    display: none;
+}
+
+/* Prompt editor textarea */
+.prompt-textarea {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    tab-size: 2;
+}
+
+/* Variable highlight in prompts */
+.var-highlight {
+    background-color: #fef3c7;
+    border-radius: 0.25rem;
+    padding: 0 0.25rem;
+    font-weight: 500;
+    color: #92400e;
+}
+
+/* Execution log auto-scroll */
+.execution-log {
+    scroll-behavior: smooth;
+}
+
+/* Loading spinner */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Toast animations */
+.toast-enter {
+    animation: slideIn 0.3s ease-out;
+}
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

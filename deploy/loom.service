@@ -1,0 +1,21 @@
+[Unit]
+Description=Loom Workflow Automation
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/loom
+EnvironmentFile=/opt/loom/.env
+ExecStart=/opt/loom/.venv/bin/uvicorn backend.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=loom
+
+[Install]
+WantedBy=multi-user.target
