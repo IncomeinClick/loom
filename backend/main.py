@@ -47,6 +47,14 @@ async def lifespan(app: FastAPI):
                 f"Marked {result.rowcount} stuck execution(s) as failed on startup"
             )
 
+    # Seed example workflow templates (idempotent — inserts only what is missing)
+    try:
+        from backend.services.template_seeder import seed_templates
+        async with async_session() as db:
+            await seed_templates(db)
+    except Exception as e:
+        logging.getLogger(__name__).error(f"Template seeding failed: {e}")
+
     # Start scheduler if available
     import logging
     logging.basicConfig(level=logging.INFO)
