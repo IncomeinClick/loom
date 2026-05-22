@@ -16,7 +16,7 @@ Workflow automation for Facebook page management — schedule posts, generate ca
 
 ```bash
 # Clone
-git clone https://github.com/Income-in-Click/loom.git
+git clone https://github.com/IncomeinClick/loom.git
 cd loom
 
 # Set up Python environment
@@ -29,6 +29,20 @@ pip install -e .
 ```
 
 Open http://localhost:8000 — on first load, the setup wizard will prompt for an email + password and generate the encryption keys for you.
+
+## Companion repos
+
+Loom ships as a clean engine — starter content and AI agent skills live in their own repos so you only pull in what you need:
+
+- **[loom-templates](https://github.com/IncomeinClick/loom-templates)** — starter workflow templates (video + image content pipelines). Drop into `loom/templates/` to have them auto-seeded on first startup.
+- **[loom-skills](https://github.com/IncomeinClick/loom-skills)** — Claude Code skills that work with this Loom instance (duplicate workflow, page scheduler, run ads).
+
+If you want the example templates pre-seeded into your Loom dashboard:
+
+```bash
+git clone https://github.com/IncomeinClick/loom-templates.git templates
+# then restart Loom — the startup hook will seed templates/*.json under a virtual "Template (Example)" page
+```
 
 ## Configuration
 

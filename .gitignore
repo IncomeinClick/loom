@@ -5,6 +5,10 @@
 # Operator-specific configs (each install has their own pages/workflows/credentials)
 data/configs/
 
+# Templates + skills live in separate repos and are cloned in by the operator
+templates/
+skills/
+
 # Python
 __pycache__/
 *.py[cod]
