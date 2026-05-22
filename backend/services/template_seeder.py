@@ -16,6 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.models.niche import Niche
 from backend.models.page import Page
+from backend.models.seeded_template import SeededTemplate
 from backend.models.step import Step
 from backend.models.workflow import Workflow
 
@@ -86,7 +87,13 @@ async def seed_templates(db: AsyncSession) -> int:
             wf = raw["workflow"]
             steps = raw["steps"]
 
+            if await db.get(SeededTemplate, wf["id"]):
+                continue  # already seeded once — never re-seed even if user deleted it
             if await db.get(Workflow, wf["id"]):
+                # workflow exists but not tracked yet (pre-tracking install) —
+                # record it so future deletions are honoured.
+                db.add(SeededTemplate(template_id=wf["id"]))
+                await db.flush()
                 continue
 
             language = wf.get("language", "English")
@@ -118,6 +125,7 @@ async def seed_templates(db: AsyncSession) -> int:
                     output_var=step.get("output_var"),
                 ))
 
+            db.add(SeededTemplate(template_id=wf["id"]))
             n_added += 1
             logger.info(f"[seed] Imported template workflow '{wf['id']}' ({len(steps)} steps)")
         except Exception as e:

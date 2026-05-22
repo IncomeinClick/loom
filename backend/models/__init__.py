@@ -7,6 +7,7 @@ from backend.models.execution import Execution, StepOutput
 from backend.models.credential import Credential
 from backend.models.datatable import DataTable, DataRow
 from backend.models.ad_campaign import AdCampaign
+from backend.models.seeded_template import SeededTemplate
 
 __all__ = [
     "Base",
@@ -20,4 +21,5 @@ __all__ = [
     "DataTable",
     "DataRow",
     "AdCampaign",
+    "SeededTemplate",
 ]

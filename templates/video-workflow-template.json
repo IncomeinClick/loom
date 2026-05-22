@@ -2,9 +2,9 @@
   "_comment": "Loom Workflow Template — Video Content Pipeline (11 steps). Replace all <PLACEHOLDER> values with your own. See README.md for full instructions.",
 
   "workflow": {
-    "id": "<YOUR_PAGE_ID>-video-1",
+    "id": "<YOUR_PAGE_ID>-video",
     "page_id": "<YOUR_PAGE_ID>",
-    "name": "<Your Page Display Name> Video 1",
+    "name": "<Your Page Display Name> Video",
     "description": "Daily video content pipeline — example template",
     "language": "<en|th|tl|id|vi>",
     "schedule": "0 6 * * *,0 12 * * *,0 18 * * *",
