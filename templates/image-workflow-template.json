@@ -1,0 +1,97 @@
+{
+  "_comment": "Loom Workflow Template — Image Content Pipeline (6 steps). Pairs with video-workflow-template.json: video workflow writes content rows, image workflow picks up unposted rows and adds an image post.",
+
+  "workflow": {
+    "id": "<YOUR_PAGE_ID>-image",
+    "page_id": "<YOUR_PAGE_ID>",
+    "name": "<Your Page Display Name> Image",
+    "description": "Daily image content pipeline — pairs with video workflow",
+    "language": "<en|th|tl|id|vi>",
+    "schedule": "30 9 * * *,30 15 * * *,30 20 * * *",
+    "active": false,
+    "sort_order": 2
+  },
+
+  "steps": [
+    {
+      "_comment": "Step 0 — Pick an unposted row from the content table (one whose 'image' column is still empty).",
+      "type": "datatable_read",
+      "name": "Get Unposted Row",
+      "sort_order": 0,
+      "output_var": "Get Unposted Row",
+      "config": {
+        "table_id": "<YOUR_PAGE_ID>-content",
+        "filter_column": "image",
+        "filter_mode": "empty",
+        "limit": 1,
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 1 — Convert the script into a detailed image-generation prompt.",
+      "type": "llm",
+      "name": "Gen Image Prompt",
+      "sort_order": 1,
+      "output_var": "Gen Image Prompt",
+      "config": {
+        "model": "gpt-4o-mini",
+        "credential_id": "<YOUR_OPENAI_CREDENTIAL_ID>",
+        "system_prompt": "You convert social-media content into detailed image-generation prompts. Output:\n- Highly detailed and specific\n- Natural language (no JSON / no parameters)\n- Photorealistic style by default unless the content calls for illustration",
+        "user_prompt": "Content: {{Get Unposted Row.script}}\n\nGenerate an image prompt for a square social media image that visually represents this content. Photorealistic, vibrant, attention-grabbing. No text or letters inside the image.",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 2 — Generate the image.",
+      "type": "gen_image",
+      "name": "Generate Image",
+      "sort_order": 2,
+      "output_var": "Generate Image",
+      "config": {
+        "credential_id": "<YOUR_GEMINI_CREDENTIAL_ID>",
+        "prompt": "{{Gen Image Prompt}}",
+        "model": "models/gemini-2.5-flash-image",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 3 — Post the image with the original script as the caption.",
+      "type": "fb_post",
+      "name": "Post Facebook",
+      "sort_order": 3,
+      "output_var": "Post Facebook",
+      "config": {
+        "credential_id": "<YOUR_FB_CREDENTIAL_ID>",
+        "media_type": "photo",
+        "media_url": "{{Generate Image}}",
+        "message": "{{Get Unposted Row.script}}",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 4 — Optional first comment (CTA / affiliate link). Delete if not needed.",
+      "type": "fb_comment",
+      "name": "First Comment",
+      "sort_order": 4,
+      "output_var": "first_comment",
+      "config": {
+        "post_id": "{{Post Facebook}}",
+        "message": "<Your CTA, affiliate link, or follow-up comment here>",
+        "credential_id": "<YOUR_FB_CREDENTIAL_ID>"
+      }
+    },
+    {
+      "_comment": "Step 5 — Mark the row's 'image' column as posted.",
+      "type": "datatable_update",
+      "name": "Update Posting Status",
+      "sort_order": 5,
+      "output_var": "Update Posting Status",
+      "config": {
+        "table_id": "<YOUR_PAGE_ID>-content",
+        "row_id": "{{Get Unposted Row.row_id}}",
+        "columns_json": "{\"image\": \"posted\"}",
+        "retry_on_error": true
+      }
+    }
+  ]
+}

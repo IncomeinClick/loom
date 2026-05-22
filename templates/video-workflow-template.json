@@ -1,0 +1,168 @@
+{
+  "_comment": "Loom Workflow Template — Video Content Pipeline (11 steps). Replace all <PLACEHOLDER> values with your own. See README.md for full instructions.",
+
+  "workflow": {
+    "id": "<YOUR_PAGE_ID>-video-1",
+    "page_id": "<YOUR_PAGE_ID>",
+    "name": "<Your Page Display Name> Video 1",
+    "description": "Daily video content pipeline — example template",
+    "language": "<en|th|tl|id|vi>",
+    "schedule": "0 6 * * *,0 12 * * *,0 18 * * *",
+    "active": false,
+    "sort_order": 1
+  },
+
+  "steps": [
+    {
+      "_comment": "Step 0 — Optional seed value (e.g. random topic/category). Replace with your own seed logic or delete if not needed.",
+      "type": "code",
+      "name": "Generate Seed",
+      "sort_order": 0,
+      "output_var": "Generate Seed",
+      "config": {
+        "code": "result = random.choice(['Topic A', 'Topic B', 'Topic C', 'Topic D'])",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 1 — Generate a unique post idea. Uses lookup_table for de-dup against previous ideas.",
+      "type": "llm",
+      "name": "Generate Idea",
+      "sort_order": 1,
+      "output_var": "Generate Idea",
+      "config": {
+        "model": "gemini-3-flash-preview",
+        "credential_id": "<YOUR_GEMINI_CREDENTIAL_ID>",
+        "lookup_table_id": "<YOUR_PAGE_ID>-content",
+        "lookup_columns": "idea",
+        "lookup_limit": 50,
+        "system_prompt": "You are an expert content creator for [YOUR NICHE]. Generate fresh, engaging post ideas for social media.",
+        "user_prompt": "Create 1 social media post idea for {{Generate Seed}}.\n\nThe idea must be:\n- Short and specific (1-2 sentences)\n- Unique (not matching any previous ideas)\n- Hook-driven (catches attention in the first sentence)\n\nReturn ONLY the idea, no preamble.",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 2 — Research / expand the idea into factual content.",
+      "type": "llm",
+      "name": "Research Content",
+      "sort_order": 2,
+      "output_var": "Research Content",
+      "config": {
+        "model": "gemini-3-flash-preview",
+        "credential_id": "<YOUR_GEMINI_CREDENTIAL_ID>",
+        "system_prompt": "You are a researcher specialised in [YOUR NICHE]. Provide accurate, well-sourced background information.",
+        "user_prompt": "Research factual information for this topic: {{Generate Idea}}\n\nProvide 3-5 key points that support or expand on this idea. Cite specific examples where possible.",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 3 — Rewrite the research into a script for the video voiceover.",
+      "type": "llm",
+      "name": "Rewrite Content",
+      "sort_order": 3,
+      "output_var": "Rewrite Content",
+      "config": {
+        "provider": "gemini",
+        "model": "gemini-3-flash-preview",
+        "credential_id": "<YOUR_GEMINI_CREDENTIAL_ID>",
+        "system_prompt": "You are a storyteller who turns information into engaging short-form video scripts. Write naturally, use short sentences, and build curiosity.",
+        "user_prompt": "Rewrite this into a 60-90 second video script:\n\n{{Research Content}}\n\nStructure:\n1. Hook (1 sentence — grab attention)\n2. Story / main content (3-5 sentences)\n3. Takeaway (1 sentence)\n\nWrite in [YOUR LANGUAGE]. No headings, no bullet points — just flowing prose.",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 4 — Generate an SEO-optimised caption to post with the video.",
+      "type": "llm",
+      "name": "Generate Caption",
+      "sort_order": 4,
+      "output_var": "Generate Caption",
+      "config": {
+        "provider": "gemini",
+        "model": "gemini-3-flash-preview",
+        "credential_id": "<YOUR_GEMINI_CREDENTIAL_ID>",
+        "system_prompt": "You are a Facebook Reels SEO expert. Write captions that maximise reach and engagement.",
+        "user_prompt": "Write a Facebook caption for this video script:\n\n{{Rewrite Content}}\n\nRequirements:\n- 100-200 characters\n- Start with a hook question or strong claim\n- End with 5-8 relevant hashtags\n- Match the tone of the script"
+      }
+    },
+    {
+      "_comment": "Step 5 — Persist the generated content to your data table for tracking + later use by the image workflow.",
+      "type": "datatable_insert",
+      "name": "Insert Row",
+      "sort_order": 5,
+      "output_var": "Insert Row",
+      "config": {
+        "table_id": "<YOUR_PAGE_ID>-content",
+        "columns_json": "{\"seed\": \"{{Generate Seed}}\", \"idea\": \"{{Generate Idea}}\", \"script\": \"{{Rewrite Content}}\", \"caption\": \"{{Generate Caption}}\", \"video\": \"\", \"image\": \"\"}",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 6 — Generate voiceover audio from the script.",
+      "type": "nova_voice",
+      "name": "Generate Voice",
+      "sort_order": 6,
+      "output_var": "Generate Voice",
+      "config": {
+        "credential_id": "<YOUR_NOVA_CREDENTIAL_ID>",
+        "input_text": "{{Rewrite Content}}",
+        "voice": "<voice-name>",
+        "style": "auto",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 7 — Generate the video itself, using the voiceover + script as input.",
+      "type": "nova_video",
+      "name": "Generate Video",
+      "sort_order": 7,
+      "output_var": "Generate Video",
+      "config": {
+        "credential_id": "<YOUR_NOVA_CREDENTIAL_ID>",
+        "audio_url": "{{Generate Voice}}",
+        "video_script": "{{Rewrite Content}}",
+        "image_style": "photorealistic",
+        "image_model": "flux",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 8 — Post the video + caption to Facebook.",
+      "type": "fb_post",
+      "name": "Post Facebook",
+      "sort_order": 8,
+      "output_var": "Post Facebook",
+      "config": {
+        "credential_id": "<YOUR_FB_CREDENTIAL_ID>",
+        "media_type": "video",
+        "media_url": "{{Generate Video}}",
+        "message": "{{Generate Caption}}",
+        "retry_on_error": true
+      }
+    },
+    {
+      "_comment": "Step 9 — Optional first comment (e.g. affiliate link, CTA, follow-up). Delete if not needed.",
+      "type": "fb_comment",
+      "name": "First Comment",
+      "sort_order": 9,
+      "output_var": "first_comment",
+      "config": {
+        "post_id": "{{Post Facebook}}",
+        "message": "<Your CTA, affiliate link, or follow-up comment here>",
+        "credential_id": "<YOUR_FB_CREDENTIAL_ID>"
+      }
+    },
+    {
+      "_comment": "Step 10 — Mark the row as posted so the next run picks a fresh idea.",
+      "type": "datatable_update",
+      "name": "Update Posting Status",
+      "sort_order": 10,
+      "output_var": "Update Posting Status",
+      "config": {
+        "table_id": "<YOUR_PAGE_ID>-content",
+        "row_id": "{{Insert Row.row_id}}",
+        "columns_json": "{\"video\": \"posted\"}",
+        "retry_on_error": true
+      }
+    }
+  ]
+}
