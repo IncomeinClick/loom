@@ -46,7 +46,7 @@ Current setup uses n8n (Hostinger hosted) which has:
 | User | Role |
 |---|---|
 | Pond | Owner — reviews workflows, monitors performance |
-| กาน / ตาล | Staff — may edit prompts, check status |
+| Staff members | Staff — may edit prompts, check status |
 | David (AI) | Primary operator — creates pages, generates assets, builds workflows, edits prompts, triggers runs, monitors |
 
 ---

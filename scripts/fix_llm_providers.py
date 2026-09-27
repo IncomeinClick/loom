@@ -59,34 +59,34 @@ corrections = {
     # bulong-image
     "bulong-image-step-01": ("openai", "gpt-4o"),
     "bulong-image-step-02": ("gemini", "gemini-2.0-flash"),
-    # fakfa-video-2569 (ทำนายดวง2569)
+    # fakfa-video-2569 (2026 horoscope)
     "fakfa-video-2569-step-00": ("openai", "gpt-4o-mini"),
     "fakfa-video-2569-step-01": ("gemini", "gemini-3-flash-preview"),
     "fakfa-video-2569-step-02": ("gemini", "gemini-3-flash-preview"),
     "fakfa-video-2569-step-03": ("openai", "gpt-5.2"),
     "fakfa-video-2569-step-04": ("openai", "gpt-4o-mini"),
-    # fakfa-video-now (ทำนายดวงในช่วงนี้)
+    # fakfa-video-now (horoscope for this period)
     "fakfa-video-now-step-00": ("openai", "gpt-4o-mini"),
     "fakfa-video-now-step-01": ("gemini", "gemini-3-flash-preview"),
     "fakfa-video-now-step-02": ("gemini", "gemini-3-flash-preview"),
     "fakfa-video-now-step-03": ("openai", "gpt-5.2"),
     "fakfa-video-now-step-04": ("openai", "gpt-4o-mini"),
-    # fakfa-image (Image Post เสียงจากฟากฟ้า)
+    # fakfa-image (Image Post, The Heavens Whisperer)
     "fakfa-image-step-01": ("openai", "gpt-4o"),
     "fakfa-image-step-02": ("gemini", "gemini-2.0-flash"),
-    # wanwan-video-days (ทำนายดวงวันเกิด)
+    # wanwan-video-days (birthday horoscope)
     "wanwan-video-days-step-00": ("openai", "gpt-4o-mini"),
     "wanwan-video-days-step-01": ("gemini", "gemini-3-flash-preview"),
     "wanwan-video-days-step-02": ("gemini", "gemini-3-flash-preview"),
     "wanwan-video-days-step-03": ("openai", "gpt-5.2"),
     "wanwan-video-days-step-04": ("openai", "gpt-4o-mini"),
-    # wanwan-video-dates (ถอดรหัสลับวันเกิด)
+    # wanwan-video-dates (birthday secret code)
     "wanwan-video-dates-step-00": ("openai", "gpt-4o-mini"),
     "wanwan-video-dates-step-01": ("gemini", "gemini-3-flash-preview"),
     "wanwan-video-dates-step-02": ("gemini", "gemini-3-flash-preview"),
     "wanwan-video-dates-step-03": ("openai", "gpt-5.2"),
     "wanwan-video-dates-step-04": ("openai", "gpt-4o-mini"),
-    # wanwan-image (Image Post เสียงจากวันวาน)
+    # wanwan-image (Image Post, Echoes of Yesterday)
     "wanwan-image-step-01": ("openai", "gpt-4o"),
     "wanwan-image-step-02": ("gemini", "gemini-2.0-flash"),
 }

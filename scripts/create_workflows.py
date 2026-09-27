@@ -32,36 +32,36 @@ def create_step(wf_id: str, step: dict):
 
 # ─── Shared prompts ─────────────────────────────────────────────
 
-SEO_CAPTION_SYSTEM_TH = """คุณคือผู้เชี่ยวชาญด้าน SEO สำหรับ Facebook Reels ที่มีความรู้เชิงลึกเกี่ยวกับการปรับแต่งวิดีโอสั้นให้เหมาะกับอัลกอริทึมของ Facebook คุณเข้าใจวิธีที่ระบบของ Facebook จัดอันดับและโปรโมทเนื้อหา Reels และเชี่ยวชาญในการเขียนคำอธิบายที่กระชับ มีคีย์เวิร์ดที่สำคัญ เพื่อเพิ่มโอกาสในการถูกค้นเจอ โดยยังคงใช้ภาษาธรรมชาติที่น่าสนใจสำหรับผู้ชม คุณรู้วิธีบาลานซ์ระหว่างการปรับให้เข้ากับอัลกอริทึมและการสร้างแรงจูงใจในการรับชมได้อย่างเหมาะสมสำหรับวิดีโอ Reels โดยเฉพาะ"""
+SEO_CAPTION_SYSTEM_TH = """You are an SEO expert for Facebook Reels with deep knowledge of optimizing short videos for the Facebook algorithm. You understand how Facebook ranks and promotes Reels content, and you specialize in writing concise descriptions packed with the right keywords to improve discoverability while keeping the language natural and engaging for viewers. You know how to balance algorithm optimization with giving people a reason to watch, specifically for Reels videos."""
 
-GEN_CONTENT_IMAGE_SYSTEM_TH_MALE = """คุณคือ Content Creator มืออาชีพที่เชี่ยวชาญการเขียนบทความยาว (Article) ลง Facebook โดยเฉพาะ
-สไตล์การเขียนของคุณคือแบบ "Documentary Style" (แนวสารคดี) ที่เน้นการเล่าเรื่องอย่างมีชั้นเชิง ให้ข้อมูลเชิงลึก ดูน่าเชื่อถือ และมีความเป็นมืออาชีพ
-กฎในการเขียน:
-1. ความยาว: ให้พยายามเขียนให้ได้ความยาวประมาณ 2,000 ตัวอักษร เพื่อเนื้อหาที่ครบถ้วนและลึกซึ้ง
-2. รูปแบบ: เน้นการเขียน "บทความ" เท่านั้น ไม่เอาสคริปต์วิดีโอสั้น
-3. ภาษา: ใช้ภาษาไทยที่เป็นทางการแต่เข้าถึงง่าย สละสลวยเหมือนอ่านนิตยสารคุณภาพ ไม่ใช้คำโฆษณาที่ดูเกินจริง (No Clickbait)
-4. การจัดวาง: เว้นวรรคตอนให้สแกนอ่านง่าย ใช้ Bullet points เมื่อจำเป็น และใช้ Emoji เท่าที่จำเป็นเพื่อไม่ให้รบกวนสายตา
-5. มุมมอง: เน้นการเล่าจากประสบการณ์จริง การสังเกต หรือการวิเคราะห์ที่ทำให้ผู้อ่านเห็นภาพตาม
-6. เว้นบรรทัดบ่อยๆ จะได้อ่านง่าย
-7. ตอบเฉพาะบทความ ไม่ต้องเกริ่นนำ ไม่ต้องสรุป
-8. ห้ามใส่เครื่องหมายใดๆในบทความ
-9. คุณคือผู้ชาย ดังนั้น ลงท้ายทุกประโยคว่า "ครับ\""""
+GEN_CONTENT_IMAGE_SYSTEM_TH_MALE = """You are a professional Content Creator who specializes in writing long-form articles for Facebook.
+Your writing style is "Documentary Style", focused on skillful storytelling, in-depth information, credibility and professionalism.
+Writing rules:
+1. Length: Aim for roughly 2,000 characters so the content is complete and in-depth
+2. Format: Write "articles" only, not short video scripts
+3. Language: Use formal but accessible English, as polished as a quality magazine. Avoid exaggerated advertising language (No Clickbait)
+4. Layout: Break up paragraphs so the text is easy to scan, use bullet points when needed, and use emoji sparingly so they don't distract the eye
+5. Perspective: Focus on telling it from real experience, observation or analysis that helps the reader picture it
+6. Add line breaks often so it is easy to read
+7. Reply with the article only, no introduction and no summary
+8. Do not use any symbols in the article
+9. You are a man, so write every sentence in a warm, polite "male voice\""""
 
 GEN_CONTENT_IMAGE_SYSTEM_TH_FEMALE = GEN_CONTENT_IMAGE_SYSTEM_TH_MALE.replace(
-    '9. คุณคือผู้ชาย ดังนั้น ลงท้ายทุกประโยคว่า "ครับ"',
-    '9. คุณคือผู้หญิง ดังนั้น ลงท้ายทุกประโยคว่า "ค่ะ หรือ คะ"'
+    '9. You are a man, so write every sentence in a warm, polite "male voice"',
+    '9. You are a woman, so write every sentence in a warm, polite "female voice"'
 )
 
-GEN_CONTENT_IMAGE_USER_TH = """ช่วยนำเนื้อหาที่ผมแนบมานี้ มาเรียบเรียงใหม่ (Rewrite) ให้เป็นบทความคุณภาพสำหรับลง Facebook
-โดยเน้นสไตล์การเล่าเรื่องแบบ "สารคดี" ความยาวประมาณ 2,000 ตัวอักษร
+GEN_CONTENT_IMAGE_USER_TH = """Please take the content I attached and rewrite it into a quality article for Facebook
+in a "documentary" storytelling style, about 2,000 characters long.
 
-เงื่อนไข:
-- ขึ้นต้นด้วยคำถามให้คนอ่านรู้สึกอยากรู้อยากเห็น
-- มีการสรุปใจความสำคัญที่คนอ่านจะได้รับ หรือข้อคิดที่ได้จากเรื่องนี้
-- จบด้วยคำถามหรือข้อความที่กระตุ้นให้คนเข้ามาคอมเมนต์แลกเปลี่ยนกัน
-- ไม่ต้องขึ้นต้นหัวข้อ เขียนบรรยายได้เลย
+Conditions:
+- Open with a question that makes the reader curious
+- Include a summary of the key takeaways the reader will get, or the lesson from this story
+- End with a question or statement that encourages people to comment and share their views
+- No heading, just start writing
 
-เนื้อหาต้นฉบับ:
+Original content:
 {{Get Row.script}}"""
 
 GEN_PROMPT_SYSTEM = """You are an AI that converts social media content into detailed image generation prompts for Google's Imagen model. Generate prompts that are:
@@ -261,33 +261,33 @@ def upload_post_step(sort, video_ref, title_ref, desc_ref, user, output_var="Upl
 
 WORKFLOWS = []
 
-# ─── 1. ถอดฝันบันดาลโชค (Video) ───────────────────────────────
+# ─── 1. Dream Decoder (Video) ───────────────────────────────
 
 WORKFLOWS.append({
     "workflow": {
         "id": "thodfan-video",
         "page_id": "thodfan-bandanchok",
-        "name": "ถอดฝันบันดาลโชค - Video",
+        "name": "Dream Decoder - Video",
         "description": "Thai dream interpretation video pipeline",
         "language": "Thai",
         "active": False,
     },
     "steps": [
         llm_step("Generate Keyword", 0, "gemini-2.0-flash", "",
-            "คิด keyword ที่เกี่ยวข้องกับ \"ความฝัน\" ที่คนไทยนิยมฝันถึงหรือมักจะเอาไปตีเลขเด็ดออกมา 1 คำ keyword นี้จะเป็นอะไรก็ได้ เช่น ชื่อสัตว์ ชื่อสิ่งของ เหตุการณ์ในฝัน หรือบุคคลในฝัน (เช่น งู, ปลาไหล, เลขที่บ้าน ฯลฯ) ต้องเป็นสิ่งที่คนเห็นแล้วอยากรู้คำทำนายทันที\n\nเงื่อนไขสำคัญ:\n- ตอบเฉพาะคำ keyword เท่านั้น ไม่ต้อง intro ไม่ต้อง outro ไม่ต้องทวนคำสั่ง\n- หลีกเลี่ยงคำที่จะนำไปสู่ความหมายด้านลบ เช่น คนตาย ฟันหลุด ฯลฯ\n- ห้ามใส่เครื่องหมายใดๆ\n- สำคัญมาก ห้ามตอบ keyword ซ้ำกับคำที่อยู่ในข้อมูลต่อไปนี้: {{datatable}}",
+            "Come up with 1 keyword related to \"dreams\" that Thai people commonly dream about or often turn into lucky lottery numbers. The keyword can be anything, such as an animal, an object, an event in a dream, or a person in a dream (for example snake, eel, house number, etc.). It must be something people instantly want to know the meaning of when they see it.\n\nImportant conditions:\n- Reply with the keyword only. No intro, no outro, do not repeat the instructions\n- Avoid words that lead to negative meanings, such as a dead person, teeth falling out, etc.\n- Do not use any punctuation or symbols\n- Very important: do not reply with a keyword that duplicates any word in the following data: {{datatable}}",
             lookup_table_id="thodfan-bandanchok"),
 
         llm_step("Generate Idea", 1, "gemini-2.0-flash",
-            "คุณเป็น AI ผู้เชี่ยวชาญด้านการทำนายฝันตามตำราไทยโบราณและจิตวิทยาความฝัน หน้าที่ของคุณคือการนำ Keyword ความฝันที่ได้รับ มาสร้างเป็น \"จุดเด่นของคำทำนาย\" ที่ฟังดูขลัง มีพลัง และเน้นไปทางโชคลาภหรือการเปลี่ยนแปลงของชีวิตในทางที่ดี เพื่อให้คนดูรู้สึกตื่นเต้นและอยากฟังคำทำนายเต็มๆ",
-            "สร้างไอเดียคำทำนายหรือนิมิตบอกเหตุที่น่าทึ่ง 1 ไอเดีย เกี่ยวกับความฝันเรื่อง: {{Generate Keyword}}\n\nเงื่อนไขสำคัญ\n- ตอบไอเดียที่ได้ด้วยประโยคสั้นๆ ประโยคเดียวห้ามเกิน 50 ตัวอักษร\n- ต้องเป็นเนื้อหาที่สื่อถึงโชคลาภ ข่าวดี การพ้นเคราะห์ หรือเรื่องดีๆเท่านั้น\n- ห้ามมีเครื่องหมายใดๆ\n- ห้ามเกริ่นนำ ห้ามบรรยาย ห้ามสรุป"),
+            "You are an AI expert in dream interpretation based on ancient Thai texts and the psychology of dreams. Your job is to take the dream keyword you receive and turn it into a \"prediction highlight\" that sounds mystical and powerful, focused on good fortune or positive life changes, so viewers feel excited and want to hear the full interpretation.",
+            "Create 1 remarkable prediction or omen idea about a dream of: {{Generate Keyword}}\n\nImportant conditions\n- Reply with the idea as one short sentence of no more than 50 characters\n- It must be about good fortune, good news, escaping bad luck, or other good things only\n- Do not use any punctuation or symbols\n- No introduction, no description, no summary"),
 
         llm_step("Generate Content", 2, "gemini-2.0-flash",
-            "คุณเป็นนักเขียนสคริปต์วิดีโอสั้น (Reels/TikTok) มืออาชีพ ที่เชี่ยวชาญด้านความเชื่อและโหราศาสตร์ไทย หน้าที่ของคุณคือการนำ \"ไอเดียคำทำนาย\" มาขยายความเป็นสคริปต์วิดีโอความยาวประมาณ 30-45 วินาที โดยใช้ภาษาที่ดูอบอุ่น มีพลัง และสร้างความหวัง เน้นการดึงดูดกลุ่มเป้าหมายผู้ใหญ่ (อายุ 40+) ให้รู้สึกว่าคำทำนายนี้เป็นของพวกเขาโดยเฉพาะ",
-            "นำไอเดียนี้ไปเขียนเป็นสคริปต์วิดีโอสั้น: {{Generate Idea}}\n\nโครงสร้างสคริปต์ที่ต้องทำ:\n- Hook : ต้องขึ้นต้นด้วยการระบุกลุ่มเป้าหมายให้ชัดเจน เช่น \"ใครที่ฝันเห็น{{Generate Keyword}} ฟังคลิปนี้ให้จบนะครับ\"\n- Body : ขยายความไอเดียจากที่ได้รับมา ให้รายละเอียดเพิ่มเล็กน้อยเกี่ยวกับโชคลาภ การงาน หรือการเงิน โดยเน้นไปในทาง \"ข่าวดี\" และ \"การพ้นเคราะห์\"\n- Closing & CTA : ปิดท้ายด้วยประโยคว่า \"อย่าลืมกดติดตามไว้รับคำทำนายฝันทุกวันนะครับ\"\n\nเงื่อนไขสำคัญ:\n- ใช้ภาษาพูดที่ลื่นไหล เหมือนคนเล่าให้ฟัง\n- ความยาวสคริปต์รวม 150 คำ\n- ห้ามเกริ่นนำ ห้ามสรุป ตอบเฉพาะสคริปต์\n- ห้ามใส่เครื่องหมายใดๆ"),
+            "You are a professional short video scriptwriter (Reels/TikTok) who specializes in Thai beliefs and astrology. Your job is to expand a \"prediction idea\" into a video script about 30-45 seconds long, using warm, powerful and hopeful language. Target mature viewers (age 40+) and make them feel this prediction is meant especially for them.",
+            "Turn this idea into a short video script: {{Generate Idea}}\n\nRequired script structure:\n- Hook : Open by clearly naming the target audience, for example \"If you dreamed of {{Generate Keyword}}, watch this clip to the end\"\n- Body : Expand on the idea you received, adding a little detail about luck, work or money, focusing on \"good news\" and \"escaping bad luck\"\n- Closing & CTA : End with the line \"Don't forget to follow for a new dream interpretation every day\"\n\nImportant conditions:\n- Write in English, in a flowing conversational style, like someone telling a story\n- Total script length 150 words\n- No introduction, no summary, reply with the script only\n- Do not use any punctuation or symbols"),
 
         llm_step("Generate Caption", 3, "gemini-2.0-flash",
             SEO_CAPTION_SYSTEM_TH,
-            "จากเนื้อหาวิดีโอสั้นนี้:\n\n{{Generate Content}}\n\nสร้าง caption สั้นๆ ที่ปรับให้เหมาะกับ SEO\n\nข้อกำหนด:\n- ความยาวรวมไม่เกิน 100 ตัวอักษร\n- วางคีย์เวิร์ดหลักไว้ในประโยคแรกอย่างเป็นธรรมชาติ\n- ใส่แฮชแท็กที่เกี่ยวข้อง 3-4 อัน\n- ปิดท้ายด้วยแฮชแท็ก #ถอดฝันบันดาลโชค\n- ไม่ต้องเกริ่นนำ ไม่ต้องสรุป ห้ามใส่เครื่องหมายใดๆ"),
+            "From this short video content:\n\n{{Generate Content}}\n\nCreate a short SEO-optimized caption\n\nRequirements:\n- Total length no more than 100 characters\n- Place the main keyword naturally in the first sentence\n- Add 3-4 relevant hashtags\n- End with the hashtag #DreamDecoder\n- No introduction, no summary, no punctuation or symbols"),
 
         dt_insert_step(4, "thodfan-bandanchok", {
             "keyword": "{{Generate Keyword}}",
@@ -300,18 +300,18 @@ WORKFLOWS.append({
         nova_video_step(6, "{{Generate Voice}}", "{{Insert Row.script}}", image_style="photorealistic"),
         download_step(7, "{{Generate Video}}"),
         fb_post_step(8, "video", "{{Download Video}}", "{{Insert Row.caption}}"),
-        fb_comment_step(9, "{{Post Facebook}}", "สมัครเป็นสมาชิกเพื่อสนับสนุนเพจนี้ https://www.facebook.com/dream.oracle.th/subscribe"),
+        fb_comment_step(9, "{{Post Facebook}}", "Become a subscriber to support this page https://www.facebook.com/dream.oracle.th/subscribe"),
         dt_update_step(10, "thodfan-bandanchok", "{{Insert Row.row_id}}", {"video": "posted"}),
     ],
 })
 
-# ─── 2. Image Post ถอดฝันบันดาลโชค ────────────────────────────
+# ─── 2. Image Post Dream Decoder ────────────────────────────
 
 WORKFLOWS.append({
     "workflow": {
         "id": "thodfan-image",
         "page_id": "thodfan-bandanchok",
-        "name": "ถอดฝันบันดาลโชค - Image Post",
+        "name": "Dream Decoder - Image Post",
         "description": "Thai dream interpretation image post pipeline",
         "language": "Thai",
         "active": False,
@@ -322,38 +322,38 @@ WORKFLOWS.append({
         llm_step("Gen Prompt", 2, "gemini-2.0-flash", GEN_PROMPT_SYSTEM, GEN_PROMPT_USER_PHOTO),
         gen_image_step(3, "{{Gen Prompt}}"),
         fb_post_step(4, "photo", "{{Generate Image}}", "{{Gen Content}}"),
-        fb_comment_step(5, "{{Post Facebook}}", "สมัครเป็นสมาชิกเพื่อสนับสนุนเพจนี้ https://www.facebook.com/dream.oracle.th/subscribe"),
+        fb_comment_step(5, "{{Post Facebook}}", "Become a subscriber to support this page https://www.facebook.com/dream.oracle.th/subscribe"),
         dt_update_step(6, "thodfan-bandanchok", "{{Get Row.row_id}}", {"image": "posted"}),
     ],
 })
 
-# ─── 3. มิตรสะกิดธรรม (Video) ─────────────────────────────────
+# ─── 3. Dhamma Whisper (Video) ─────────────────────────────────
 
 WORKFLOWS.append({
     "workflow": {
         "id": "mit-sakitham-video",
         "page_id": "mit-sakitham",
-        "name": "มิตรสะกิดธรรม - Video",
+        "name": "Dhamma Whisper - Video",
         "description": "Dharma wisdom video pipeline",
         "language": "Thai",
         "active": False,
     },
     "steps": [
         llm_step("Generate Keyword", 0, "gemini-2.0-flash", "",
-            "คิด keyword ที่เกี่ยวข้องกับ \"หัวข้อธรรมะหรือปัญหาชีวิต\" ที่คนวัยทำงานถึงวัยผู้ใหญ่กำลังเผชิญออกมา 1 คำ keyword นี้ควรเป็นเรื่องที่คนต้องการกำลังใจหรือแนวทางปล่อยวาง เช่น ความกตัญญู, การให้อภัย, ความเหงา, กฎแห่งกรรม, เพื่อนร่วมงาน, สุขภาพกายใจ หรือหัวข้อธรรมะสั้นๆ (เช่น ปล่อยวาง, สติ, บุญบารมี)\n\nเงื่อนไขสำคัญ:\n- ตอบเฉพาะคำ keyword เท่านั้น ไม่ต้อง intro ไม่ต้อง outro ไม่ต้องทวนคำสั่ง\n- ห้ามใส่เครื่องหมายใดๆ\n- สำคัญมาก ห้ามตอบ keyword ซ้ำกับคำที่อยู่ในข้อมูลต่อไปนี้: {{datatable}}",
+            "Come up with 1 keyword related to a \"dharma topic or life problem\" that working-age to older adults are facing. The keyword should be something people need encouragement or guidance on letting go of, such as gratitude, forgiveness, loneliness, the law of karma, coworkers, physical and mental health, or a short dharma topic (for example letting go, mindfulness, merit)\n\nImportant conditions:\n- Reply with the keyword only. No intro, no outro, do not repeat the instructions\n- Do not use any punctuation or symbols\n- Very important: do not reply with a keyword that duplicates any word in the following data: {{datatable}}",
             lookup_table_id="mit-sakitham"),
 
         llm_step("Generate Idea", 1, "gemini-2.0-flash",
-            "คุณเป็น AI ผู้เชี่ยวชาญด้านธรรมะประยุกต์และจิตวิทยาการให้กำลังใจ หน้าที่ของคุณคือการนำ Keyword ปัญหาชีวิตหรือหัวข้อธรรมะที่ได้รับ มาสร้างเป็น \"ข้อคิดสั้นๆ\" ที่ช่วยปลอบประโลมใจ ให้สติ หรือชี้ทางสว่างให้กับผู้ที่กำลังเป็นทุกข์ โดยเน้นภาษาที่เข้าใจง่ายและเข้าถึงใจคนวัยทำงานและผู้ใหญ่",
-            "สร้างข้อคิดเตือนใจหรือแนวทางปล่อยวางที่ลึกซึ้ง 1 ไอเดีย เกี่ยวกับหัวข้อ: {{Generate Keyword}}\n\nเงื่อนไขสำคัญ\n- ตอบไอเดียที่ได้ด้วยประโยคสั้นๆ ประโยคเดียวห้ามเกิน 50 ตัวอักษร\n- ต้องเป็นเนื้อหาที่สื่อถึงการปล่อยวาง ความสงบ หรือการสร้างพลังบวก\n- ห้ามมีเครื่องหมายใดๆ\n- ห้ามเกริ่นนำ ห้ามบรรยาย ห้ามสรุป"),
+            "You are an AI expert in applied Buddhist dharma and the psychology of encouragement. Your job is to take the life problem or dharma keyword you receive and turn it into a \"short reflection\" that comforts the heart, restores mindfulness, or lights the way for someone who is suffering, using language that is easy to understand and speaks to working adults and older adults.",
+            "Create 1 profound reflection or way of letting go about the topic: {{Generate Keyword}}\n\nImportant conditions\n- Reply with the idea as one short sentence of no more than 50 characters\n- It must be about letting go, peace of mind, or building positive energy\n- Do not use any punctuation or symbols\n- No introduction, no description, no summary"),
 
         llm_step("Generate Content", 2, "gemini-2.0-flash",
-            "คุณเป็นนักเขียนสคริปต์วิดีโอสั้น (Reels/TikTok) มืออาชีพ ที่เชี่ยวชาญด้านการถ่ายทอดธรรมะฮีลใจ หน้าที่ของคุณคือการนำ \"ข้อคิดธรรมะ\" มาขยายความเป็นสคริปต์วิดีโอความยาวประมาณ 30-45 วินาที โดยใช้โทนเสียงที่นุ่มนวล อบอุ่น เหมือนเพื่อนที่ปรารถนาดีมาสะกิดไหล่ให้สติ เน้นกลุ่มเป้าหมายผู้ใหญ่ (40+) ที่ต้องการความสงบใจ",
-            "นำไอเดียนี้ไปเขียนเป็นสคริปต์วิดีโอสั้น: {{Generate Idea}}\n\nโครงสร้างสคริปต์ที่ต้องทำ:\nHook: ต้องขึ้นต้นด้วยการระบุกลุ่มเป้าหมายหรือความรู้สึกให้ชัดเจน เช่น \"ใครที่กำลัง... ฟังคลิปนี้ให้จบนะครับ\"\nBody: ขยายความไอเดียธรรมะให้ดูละมุนและเข้าใจง่าย ใช้คำที่ทำให้คนฟังรู้สึกว่า \"มีคนเข้าใจเขา\" และชี้ให้เห็นทางออกด้วยสติ\nClosing & CTA: ปิดท้ายคลิปด้วยประโยคว่า \"กดติดตามมิตรสะกิดธรรมไว้เพื่อรับพลังใจในทุกวันนะครับ\"\n\nเงื่อนไขสำคัญ:\n- ใช้ภาษาพูดที่ลึกซึ้งแต่เรียบง่าย เหมือนมิตรไมตรีที่ส่งถึงกัน\n- ความยาวสคริปต์รวมประมาณ 150 คำ\n- ห้ามเกริ่นนำ ห้ามสรุป ตอบเฉพาะตัวสคริปต์\n- ห้ามใส่เครื่องหมายใดๆ"),
+            "You are a professional short video scriptwriter (Reels/TikTok) who specializes in sharing healing dharma teachings. Your job is to expand a \"dharma reflection\" into a video script about 30-45 seconds long, in a soft, warm tone, like a caring friend gently tapping your shoulder to bring you back to mindfulness. Target mature viewers (40+) who are looking for peace of mind.",
+            "Turn this idea into a short video script: {{Generate Idea}}\n\nRequired script structure:\nHook: Open by clearly naming the target audience or feeling, for example \"If you are going through... watch this clip to the end\"\nBody: Expand the dharma idea so it feels gentle and easy to understand. Use words that make listeners feel \"someone understands them\" and point to a way out through mindfulness\nClosing & CTA: End the clip with the line \"Follow Dhamma Whisper for a daily dose of inner strength\"\n\nImportant conditions:\n- Write in English that is profound yet simple, like goodwill shared between friends\n- Total script length about 150 words\n- No introduction, no summary, reply with the script only\n- Do not use any punctuation or symbols"),
 
         llm_step("Generate Caption", 3, "gemini-2.0-flash",
             SEO_CAPTION_SYSTEM_TH,
-            "จากเนื้อหาวิดีโอสั้นนี้:\n\n{{Generate Content}}\n\nสร้าง caption สั้นๆ ที่ปรับให้เหมาะกับ SEO\n\nข้อกำหนด:\n- ความยาวรวมไม่เกิน 100 ตัวอักษร\n- วางคีย์เวิร์ดหลักไว้ในประโยคแรก\n- ใส่แฮชแท็กที่เกี่ยวข้อง 3-4 อัน\n- ปิดท้ายด้วยแฮชแท็ก #มิตรสะกิดธรรม\n- ไม่ต้องเกริ่นนำ ไม่ต้องสรุป ห้ามใส่เครื่องหมายใดๆ"),
+            "From this short video content:\n\n{{Generate Content}}\n\nCreate a short SEO-optimized caption\n\nRequirements:\n- Total length no more than 100 characters\n- Place the main keyword in the first sentence\n- Add 3-4 relevant hashtags\n- End with the hashtag #DhammaWhisper\n- No introduction, no summary, no punctuation or symbols"),
 
         dt_insert_step(4, "mit-sakitham", {
             "keyword": "{{Generate Keyword}}",
@@ -366,18 +366,18 @@ WORKFLOWS.append({
         nova_video_step(6, "{{Generate Voice}}", "{{Insert Row.script}}", image_style="Watercolor Illustration"),
         download_step(7, "{{Generate Video}}"),
         fb_post_step(8, "video", "{{Download Video}}", "{{Insert Row.caption}}"),
-        fb_comment_step(9, "{{Post Facebook}}", "สมัครเป็นสมาชิกเพื่อสนับสนุนเพจนี้ https://www.facebook.com/the.dhamma.whisper/subscribe"),
+        fb_comment_step(9, "{{Post Facebook}}", "Become a subscriber to support this page https://www.facebook.com/the.dhamma.whisper/subscribe"),
         dt_update_step(10, "mit-sakitham", "{{Insert Row.row_id}}", {"video": "posted"}),
     ],
 })
 
-# ─── 4. Image Post มิตรสะกิดธรรม ──────────────────────────────
+# ─── 4. Image Post Dhamma Whisper ──────────────────────────────
 
 WORKFLOWS.append({
     "workflow": {
         "id": "mit-sakitham-image",
         "page_id": "mit-sakitham",
-        "name": "มิตรสะกิดธรรม - Image Post",
+        "name": "Dhamma Whisper - Image Post",
         "description": "Dharma wisdom image post pipeline",
         "language": "Thai",
         "active": False,
@@ -388,7 +388,7 @@ WORKFLOWS.append({
         llm_step("Gen Prompt", 2, "gemini-2.0-flash", GEN_PROMPT_SYSTEM, GEN_PROMPT_USER_WATERCOLOR),
         gen_image_step(3, "{{Gen Prompt}}"),
         fb_post_step(4, "photo", "{{Generate Image}}", "{{Gen Content}}"),
-        fb_comment_step(5, "{{Post Facebook}}", "สมัครเป็นสมาชิกเพื่อสนับสนุนเพจนี้ https://www.facebook.com/the.dhamma.whisper/subscribe"),
+        fb_comment_step(5, "{{Post Facebook}}", "Become a subscriber to support this page https://www.facebook.com/the.dhamma.whisper/subscribe"),
         dt_update_step(6, "mit-sakitham", "{{Get Row.row_id}}", {"image": "posted"}),
     ],
 })
@@ -436,7 +436,7 @@ WORKFLOWS.append({
     ],
 })
 
-# ─── 6. Image Post ถอดฝัน Phil ────────────────────────────────
+# ─── 6. Image Post Dream Decoder Phil ────────────────────────────────
 
 WORKFLOWS.append({
     "workflow": {
@@ -527,58 +527,58 @@ WORKFLOWS.append({
     ],
 })
 
-# ─── 9. เสียงจากฟากฟ้า ทำนายดวง2569 (Video) ──────────────────
+# ─── 9. The Heavens Whisperer 2026 Horoscope (Video) ──────────────────
 
-HEAVENS_REWRITE_SYSTEM = "คุณคือผู้เชี่ยวชาญด้านโหราศาสตร์จีน ศาสตร์ฮวงจุ้ย และจิตวิทยา สื่อสารเก่ง เข้าใจลึกซึ้ง และเล่าเรื่องได้ชวนติดตาม สามารถถ่ายทอดศาสตร์ลึกลับให้เข้าใจง่าย สนุก และจุดประกายความคิดในใจผู้อ่าน"
+HEAVENS_REWRITE_SYSTEM = "You are an expert in Chinese astrology, feng shui and psychology. You communicate well, understand deeply and tell captivating stories. You can make mystical knowledge easy to understand and fun, and spark new ideas in the reader's mind"
 
-HEAVENS_REWRITE_USER_2569 = """เขียนสคริปต์วิดีโอสั้นจากข้อมูลต่อไปนี้ โดยแบ่งเป็น 5 ส่วน:
+HEAVENS_REWRITE_USER_2569 = """Write a short video script from the following information, split into 5 parts:
 
-1. Hook - เปิดด้วยคำถามชวนสงสัย เช่น "มีปีนักษัตรหนึ่งที่กำลังจะ..." (ยังไม่เฉลยปีนักษัตร)
-2. เฉลยปีนักษัตร - เฉลยว่าคือปี {{Generate Zodiac}} พร้อมอธิบายตามหลักโหราศาสตร์จีน ธาตุทั้งห้า และหยินหยาง
-3. มุมจิตวิญญาณ - เสริมมุมมองด้านจิตวิญญาณ
-4. ให้กำลังใจ - ปิดด้วยข้อความให้กำลังใจ
-5. CTA - "ชอบดูดวงจีน กดติดตามช่องนี้ไว้เลยค่ะ"
+1. Hook - Open with an intriguing question, for example "There is one zodiac sign that is about to..." (do not reveal the zodiac sign yet)
+2. Zodiac reveal - Reveal that it is the Year of the {{Generate Zodiac}} and explain it using Chinese astrology, the five elements and yin and yang
+3. Spiritual angle - Add a spiritual perspective
+4. Encouragement - Close with an encouraging message
+5. CTA - "If you love Chinese astrology, follow this channel"
 
-ข้อมูลต้นฉบับ:
+Source information:
 {{Research Content}}
 
-เงื่อนไข:
-- ความยาวไม่เกิน 1,000 ตัวอักษร
-- ใช้ภาษาพูดที่ลื่นไหล เป็นธรรมชาติ
-- คุณเป็นผู้หญิง ลงท้ายด้วย ค่ะ/คะ
-- ห้ามใส่เครื่องหมายพิเศษใดๆ
-- ตอบเฉพาะสคริปต์เท่านั้น"""
+Conditions:
+- No more than 1,000 characters
+- Write in English, in a flowing, natural conversational style
+- You are a woman, so write in a female voice
+- Do not use any special symbols
+- Reply with the script only"""
 
-HEAVENS_REWRITE_USER_NOW = HEAVENS_REWRITE_USER_2569.replace("ในปี2569", "ในช่วงนี้")
+HEAVENS_REWRITE_USER_NOW = HEAVENS_REWRITE_USER_2569.replace("in 2026", "right now")
 
 WORKFLOWS.append({
     "workflow": {
         "id": "fakfa-video-2569",
         "page_id": "siang-jak-fakfa",
-        "name": "เสียงจากฟากฟ้า - ทำนายดวง2569",
+        "name": "The Heavens Whisperer - 2026 Horoscope",
         "description": "Chinese zodiac 2569 video pipeline",
         "language": "Thai",
         "active": False,
     },
     "steps": [
         llm_step("Generate Zodiac", 0, "gpt-4o-mini", "",
-            "สุ่มตอบปีนักษัตรมาหนึ่งปีจาก 12 ปีนักษัตร : ปีชวด ปีฉลู ปีขาล ปีเถาะ ปีมะโรง ปีมะเส็ง ปีมะเมีย ปีมะแม ปีวอก ปีระกา ปีจอ และปีกุน\n\nเงื่อนไขสำคัญ :\n- ตอบเฉพาะคำปีนักษัตรเท่านั้น ไม่ต้อง intro ไม่ต้อง outro ไม่ต้องทวนคำสั่ง\n- ห้ามใส่เครื่องหมายใดๆ\n- ห้ามตอบซ้ำกับข้อมูลที่มีอยู่: {{datatable}}",
+            "Randomly pick one zodiac year from the 12 Chinese zodiac signs : Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog and Pig\n\nImportant conditions :\n- Reply with the zodiac sign only. No intro, no outro, do not repeat the instructions\n- Do not use any punctuation or symbols\n- Do not repeat anything already in the existing data: {{datatable}}",
             lookup_table_id="siang-jak-fakfa-content"),
 
         llm_step("Generate Idea", 1, "gemini-2.0-flash",
-            "คุณคือผู้เชี่ยวชาญด้านการสร้างคอนเทนต์โหราศาสตร์จีน ฮวงจุ้ย และปรัชญาตะวันออก",
-            "สร้างไอเดียคอนเทนต์สำหรับโซเชียลมีเดีย 1 ไอเดีย โดยขึ้นต้นด้วย \"ปีนักษัตรที่จะ...ในปี2569คือปี{{Generate Zodiac}}\"\n\nหัวข้อให้เลือก: ความรัก, การงาน, การเงิน, โชคลาภ, การเดินทาง, การเปลี่ยนแปลงชีวิต, สุขภาพ, โอกาสใหม่ๆ, ความสำเร็จ\n\nเงื่อนไข:\n- ประโยคเดียว ไม่เกิน 50 ตัวอักษร\n- ห้ามซ้ำหัวข้อกับข้อมูลที่มี: {{datatable}}\n- ห้ามใส่เครื่องหมายใดๆ\n- ห้ามเกริ่นนำ ห้ามสรุป",
+            "You are an expert at creating content about Chinese astrology, feng shui and Eastern philosophy",
+            "Create 1 social media content idea that starts with \"The zodiac sign that will... in 2026 is the Year of the {{Generate Zodiac}}\"\n\nTopics to choose from: love, work, money, luck, travel, life changes, health, new opportunities, success\n\nConditions:\n- One sentence, no more than 50 characters\n- Do not repeat a topic already in the existing data: {{datatable}}\n- Do not use any punctuation or symbols\n- No introduction, no summary",
             lookup_table_id="siang-jak-fakfa-content"),
 
         llm_step("Research Content", 2, "gemini-2.0-flash",
-            "คุณเป็นนักวิจัยด้านโหราศาสตร์จีนแบบคลาสสิก มีความเชี่ยวชาญระบบนักษัตร ธาตุทั้งห้า หยินหยาง ฟ้า-ดิน-คน และหลักปาจื้อ อธิบายโดยอิงโครงสร้างทางปรัชญาและเวลา ไม่ใช้ความเชื่อศาสนา ไม่ใช้ความงมงาย และไม่อ้างอิงโหราศาสตร์ตะวันตกหรือดาราศาสตร์",
-            "ค้นหาข้อมูลเชิงข้อเท็จจริงตามหลักโหราศาสตร์จีนเกี่ยวกับปี{{Generate Zodiac}} ตามหัวข้อ {{Generate Idea}}\n\nอธิบายจากมุมมองของเวลา ธาตุ และวัฏจักรพลังงาน\n\nเงื่อนไข:\n- ใช้เฉพาะโหราศาสตร์จีนเท่านั้น\n- อธิบายเฉพาะแนวโน้มในปี 2569\n- ห้ามเกริ่นนำ ห้ามสรุป"),
+            "You are a researcher of classical Chinese astrology, with expertise in the zodiac system, the five elements, yin and yang, heaven-earth-human, and Ba Zi. Explain based on philosophical structure and time, without religious belief, without superstition, and without referring to Western astrology or astronomy",
+            "Find factual information based on Chinese astrology about the Year of the {{Generate Zodiac}} on the topic {{Generate Idea}}\n\nExplain from the perspective of time, the elements and energy cycles\n\nConditions:\n- Use Chinese astrology only\n- Explain only the trends for 2026\n- No introduction, no summary"),
 
         llm_step("Rewrite Content", 3, "gpt-4o", HEAVENS_REWRITE_SYSTEM, HEAVENS_REWRITE_USER_2569),
 
         llm_step("Generate Title", 4, "gpt-4o-mini",
             SEO_CAPTION_SYSTEM_TH,
-            "จากเนื้อหาวิดีโอนี้:\n{{Rewrite Content}}\n\nสร้าง:\n1. title (ไม่เกิน 60 ตัวอักษร) ใช้คำเช่น \"ปีนักษัตรนี้\" หรือ \"ปีนักษัตรที่มีเกณฑ์...\"\n2. description (ไม่เกิน 150 ตัวอักษร) พร้อม 3-4 แฮชแท็ก ปิดท้ายด้วย #เสียงจากฟากฟ้า\n\nตอบในรูปแบบ JSON:\n{\"title\": \"\", \"description\": \"\"}"),
+            "From this video content:\n{{Rewrite Content}}\n\nCreate:\n1. title (no more than 60 characters) using phrases like \"This zodiac sign\" or \"The zodiac sign destined for...\"\n2. description (no more than 150 characters) with 3-4 hashtags, ending with #TheHeavensWhisperer\n\nReply in JSON format:\n{\"title\": \"\", \"description\": \"\"}"),
 
         dt_insert_step(5, "siang-jak-fakfa-content", {
             "zodiac": "{{Generate Zodiac}}",
@@ -597,36 +597,36 @@ WORKFLOWS.append({
     ],
 })
 
-# ─── 10. เสียงจากฟากฟ้า ทำนายดวงในช่วงนี้ (Video) ─────────────
+# ─── 10. The Heavens Whisperer Current Horoscope (Video) ─────────────
 
 WORKFLOWS.append({
     "workflow": {
         "id": "fakfa-video-now",
         "page_id": "siang-jak-fakfa",
-        "name": "เสียงจากฟากฟ้า - ทำนายดวงในช่วงนี้",
+        "name": "The Heavens Whisperer - Current Horoscope",
         "description": "Chinese zodiac current period video pipeline",
         "language": "Thai",
         "active": False,
     },
     "steps": [
         llm_step("Generate Zodiac", 0, "gpt-4o-mini", "",
-            "สุ่มตอบปีนักษัตรมาหนึ่งปีจาก 12 ปีนักษัตร : ปีชวด ปีฉลู ปีขาล ปีเถาะ ปีมะโรง ปีมะเส็ง ปีมะเมีย ปีมะแม ปีวอก ปีระกา ปีจอ และปีกุน\n\nเงื่อนไขสำคัญ :\n- ตอบเฉพาะคำปีนักษัตรเท่านั้น ไม่ต้อง intro ไม่ต้อง outro ไม่ต้องทวนคำสั่ง\n- ห้ามใส่เครื่องหมายใดๆ\n- ห้ามตอบซ้ำกับข้อมูลที่มีอยู่: {{datatable}}",
+            "Randomly pick one zodiac year from the 12 Chinese zodiac signs : Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog and Pig\n\nImportant conditions :\n- Reply with the zodiac sign only. No intro, no outro, do not repeat the instructions\n- Do not use any punctuation or symbols\n- Do not repeat anything already in the existing data: {{datatable}}",
             lookup_table_id="siang-jak-fakfa-content"),
 
         llm_step("Generate Idea", 1, "gemini-2.0-flash",
-            "คุณคือผู้เชี่ยวชาญด้านการสร้างคอนเทนต์โหราศาสตร์จีน ฮวงจุ้ย และปรัชญาตะวันออก",
-            "สร้างไอเดียคอนเทนต์สำหรับโซเชียลมีเดีย 1 ไอเดีย โดยขึ้นต้นด้วย \"ปีนักษัตรที่จะ...ในช่วงนี้คือปี{{Generate Zodiac}}\"\n\nหัวข้อให้เลือก: ความรัก, การงาน, การเงิน, โชคลาภ, การเดินทาง, การเปลี่ยนแปลงชีวิต, สุขภาพ, โอกาสใหม่ๆ, ความสำเร็จ\n\nเงื่อนไข:\n- ประโยคเดียว ไม่เกิน 50 ตัวอักษร\n- ห้ามซ้ำหัวข้อกับข้อมูลที่มี: {{datatable}}\n- ห้ามใส่เครื่องหมายใดๆ\n- ห้ามเกริ่นนำ ห้ามสรุป",
+            "You are an expert at creating content about Chinese astrology, feng shui and Eastern philosophy",
+            "Create 1 social media content idea that starts with \"The zodiac sign that will... right now is the Year of the {{Generate Zodiac}}\"\n\nTopics to choose from: love, work, money, luck, travel, life changes, health, new opportunities, success\n\nConditions:\n- One sentence, no more than 50 characters\n- Do not repeat a topic already in the existing data: {{datatable}}\n- Do not use any punctuation or symbols\n- No introduction, no summary",
             lookup_table_id="siang-jak-fakfa-content"),
 
         llm_step("Research Content", 2, "gemini-2.0-flash",
-            "คุณเป็นนักวิจัยด้านโหราศาสตร์จีนแบบคลาสสิก มีความเชี่ยวชาญระบบนักษัตร ธาตุทั้งห้า หยินหยาง ฟ้า-ดิน-คน และหลักปาจื้อ อธิบายโดยอิงโครงสร้างทางปรัชญาและเวลา ไม่ใช้ความเชื่อศาสนา ไม่ใช้ความงมงาย และไม่อ้างอิงโหราศาสตร์ตะวันตกหรือดาราศาสตร์",
-            "ค้นหาข้อมูลเชิงข้อเท็จจริงตามหลักโหราศาสตร์จีนเกี่ยวกับปี{{Generate Zodiac}} ตามหัวข้อ {{Generate Idea}}\n\nอธิบายจากมุมมองของเวลา ธาตุ และวัฏจักรพลังงาน\n\nเงื่อนไข:\n- ใช้เฉพาะโหราศาสตร์จีนเท่านั้น\n- อธิบายเฉพาะแนวโน้มในช่วงนี้ (ปี 2569 ตรงกับปีมะเมีย)\n- ห้ามเกริ่นนำ ห้ามสรุป"),
+            "You are a researcher of classical Chinese astrology, with expertise in the zodiac system, the five elements, yin and yang, heaven-earth-human, and Ba Zi. Explain based on philosophical structure and time, without religious belief, without superstition, and without referring to Western astrology or astronomy",
+            "Find factual information based on Chinese astrology about the Year of the {{Generate Zodiac}} on the topic {{Generate Idea}}\n\nExplain from the perspective of time, the elements and energy cycles\n\nConditions:\n- Use Chinese astrology only\n- Explain only the trends right now (2026 is the Year of the Horse)\n- No introduction, no summary"),
 
         llm_step("Rewrite Content", 3, "gpt-4o", HEAVENS_REWRITE_SYSTEM, HEAVENS_REWRITE_USER_NOW),
 
         llm_step("Generate Title", 4, "gpt-4o-mini",
             SEO_CAPTION_SYSTEM_TH,
-            "จากเนื้อหาวิดีโอนี้:\n{{Rewrite Content}}\n\nสร้าง:\n1. title (ไม่เกิน 60 ตัวอักษร) ใช้คำเช่น \"ปีนักษัตรนี้\" หรือ \"ปีนักษัตรที่มีเกณฑ์...\"\n2. description (ไม่เกิน 150 ตัวอักษร) พร้อม 3-4 แฮชแท็ก ปิดท้ายด้วย #เสียงจากฟากฟ้า\n\nตอบในรูปแบบ JSON:\n{\"title\": \"\", \"description\": \"\"}"),
+            "From this video content:\n{{Rewrite Content}}\n\nCreate:\n1. title (no more than 60 characters) using phrases like \"This zodiac sign\" or \"The zodiac sign destined for...\"\n2. description (no more than 150 characters) with 3-4 hashtags, ending with #TheHeavensWhisperer\n\nReply in JSON format:\n{\"title\": \"\", \"description\": \"\"}"),
 
         dt_insert_step(5, "siang-jak-fakfa-content", {
             "zodiac": "{{Generate Zodiac}}",
@@ -645,13 +645,13 @@ WORKFLOWS.append({
     ],
 })
 
-# ─── 11. Image Post เสียงจากฟากฟ้า ────────────────────────────
+# ─── 11. Image Post The Heavens Whisperer ────────────────────────────
 
 WORKFLOWS.append({
     "workflow": {
         "id": "fakfa-image",
         "page_id": "siang-jak-fakfa",
-        "name": "เสียงจากฟากฟ้า - Image Post",
+        "name": "The Heavens Whisperer - Image Post",
         "description": "Chinese zodiac image post pipeline",
         "language": "Thai",
         "active": False,
@@ -666,56 +666,56 @@ WORKFLOWS.append({
     ],
 })
 
-# ─── 12. เสียงจากวันวาน ทำนายดวงวันเกิด (Video) ──────────────
+# ─── 12. Echoes of Yesterday Birth Day Horoscope (Video) ──────────────
 
-RAINBOW_REWRITE_SYSTEM = "คุณคือผู้เชี่ยวชาญด้านโหราศาสตร์ไทยโบราณ ลัคนาไทย ดาวนพเคราะห์ เรือนชะตา ตำราพรหมชาติ และจิตวิทยา สื่อสารเก่ง เข้าใจลึกซึ้ง และเล่าเรื่องได้ชวนติดตาม สามารถถ่ายทอดศาสตร์โบราณให้เข้าใจง่าย สนุก และจุดประกายความคิดในใจผู้อ่าน"
+RAINBOW_REWRITE_SYSTEM = "You are an expert in ancient Thai astrology, Thai ascendants, the nine planets, the houses of the horoscope, the Phrommachat almanac and psychology. You communicate well, understand deeply and tell captivating stories. You can make ancient knowledge easy to understand and fun, and spark new ideas in the reader's mind"
 
-RAINBOW_REWRITE_USER = """เขียนสคริปต์วิดีโอสั้นจากข้อมูลต่อไปนี้ โดยแบ่งเป็น 5 ส่วน:
+RAINBOW_REWRITE_USER = """Write a short video script from the following information, split into 5 parts:
 
-1. Hook - เปิดด้วยคำถามชวนสงสัย เช่น "คนเกิดวันนี้กำลังจะ..." (ยังไม่เฉลยวันเกิด)
-2. เฉลยวันเกิด - เฉลยว่าคือ {{Generate Days}} พร้อมอธิบายตามหลักโหราศาสตร์ไทยโบราณ
-3. มุมจิตวิญญาณ - เสริมมุมมองด้านจิตวิญญาณ
-4. ให้กำลังใจ - ปิดด้วยข้อความให้กำลังใจ
-5. CTA - "เชื่อเรื่องดวง กดติดตามช่องนี้ได้เลยค่ะ"
+1. Hook - Open with an intriguing question, for example "People born on this day are about to..." (do not reveal the day yet)
+2. Birth day reveal - Reveal that it is {{Generate Days}} and explain it using ancient Thai astrology
+3. Spiritual angle - Add a spiritual perspective
+4. Encouragement - Close with an encouraging message
+5. CTA - "If you believe in fortune, follow this channel"
 
-ข้อมูลต้นฉบับ:
+Source information:
 {{Research Content}}
 
-เงื่อนไข:
-- ความยาวไม่เกิน 1,000 ตัวอักษร
-- ใช้ภาษาพูดที่ลื่นไหล เป็นธรรมชาติ
-- คุณเป็นผู้หญิง ลงท้ายด้วย ค่ะ/คะ
-- ห้ามใส่เครื่องหมายพิเศษใดๆ
-- ตอบเฉพาะสคริปต์เท่านั้น"""
+Conditions:
+- No more than 1,000 characters
+- Write in English, in a flowing, natural conversational style
+- You are a woman, so write in a female voice
+- Do not use any special symbols
+- Reply with the script only"""
 
 WORKFLOWS.append({
     "workflow": {
         "id": "wanwan-video-days",
         "page_id": "siang-jak-wanwan",
-        "name": "เสียงจากวันวาน - ทำนายดวงวันเกิด",
+        "name": "Echoes of Yesterday - Birth Day Horoscope",
         "description": "Thai birth day horoscope video pipeline",
         "language": "Thai",
         "active": False,
     },
     "steps": [
         llm_step("Generate Days", 0, "gpt-4o-mini", "",
-            "สุ่มตอบวันเกิดตามข้อมูลดังต่อไปนี้ : วันจันทร์ วันอังคาร วันพุธกลางวัน วันพุธกลางคืน วันพฤหัสบดี วันศุกร์ วันเสาร์ และวันอาทิตย์\n\nเงื่อนไขสำคัญ :\n- ตอบเฉพาะคำวันเท่านั้น ไม่ต้อง intro ไม่ต้อง outro ไม่ต้องทวนคำสั่ง\n- ห้ามใส่เครื่องหมายใดๆ\n- ห้ามตอบซ้ำกับข้อมูลที่มีอยู่: {{datatable}}",
+            "Randomly pick a birth day from the following : Monday, Tuesday, Wednesday daytime, Wednesday night, Thursday, Friday, Saturday and Sunday\n\nImportant conditions :\n- Reply with the day only. No intro, no outro, do not repeat the instructions\n- Do not use any punctuation or symbols\n- Do not repeat anything already in the existing data: {{datatable}}",
             lookup_table_id="siang-jak-wanwan-content"),
 
         llm_step("Generate Idea", 1, "gemini-2.0-flash",
-            "คุณคือผู้เชี่ยวชาญด้านโหราศาสตร์ไทยโบราณและตำราพรหมชาติ เชี่ยวชาญการวิเคราะห์พลังชีวิต ดวงชะตา และจังหวะชีวิตจากวันเกิด (7 วัน)",
-            "สร้างไอเดียคอนเทนต์ 1 ไอเดีย สำหรับคนเกิด{{Generate Days}}\n\nหัวข้อให้เลือก: ความรัก, การงาน, การเงิน, โชคลาภ, การเปลี่ยนแปลงชีวิต, สุขภาพ, โอกาสใหม่ๆ, ความสำเร็จ\n\nเงื่อนไข:\n- ประโยคเดียว ไม่เกิน 50 ตัวอักษร\n- อ้างอิงเฉพาะโหราศาสตร์ไทยโบราณ\n- ห้ามซ้ำกับข้อมูลที่มี: {{datatable}}\n- ห้ามใส่เครื่องหมายใดๆ",
+            "You are an expert in ancient Thai astrology and the Phrommachat almanac, specializing in analyzing life force, destiny and the rhythm of life from the day of the week a person was born (7 days)",
+            "Create 1 content idea for people born on {{Generate Days}}\n\nTopics to choose from: love, work, money, luck, life changes, health, new opportunities, success\n\nConditions:\n- One sentence, no more than 50 characters\n- Reference ancient Thai astrology only\n- Do not repeat anything already in the existing data: {{datatable}}\n- Do not use any punctuation or symbols",
             lookup_table_id="siang-jak-wanwan-content"),
 
         llm_step("Research Content", 2, "gemini-2.0-flash",
-            "คุณเป็นนักวิจัยและผู้เชี่ยวชาญด้านโหราศาสตร์ไทยโบราณ ตำราพรหมชาติ ดาวประจำวันเกิด พลังแห่งวัน วงจรชะตา กฎแห่งกรรม เรือนชะตา และดาวนพเคราะห์",
-            "ค้นหาข้อมูลเชิงข้อเท็จจริงตามหลักโหราศาสตร์ไทยโบราณเกี่ยวกับคนเกิด{{Generate Days}} ตามหัวข้อ {{Generate Idea}}\n\nเงื่อนไข:\n- ใช้เฉพาะโหราศาสตร์ไทยโบราณเท่านั้น\n- ห้ามใช้โหราศาสตร์จีนหรือตะวันตก\n- ห้ามเกริ่นนำ ห้ามสรุป"),
+            "You are a researcher and expert in ancient Thai astrology, the Phrommachat almanac, the ruling planet of each birth day, the power of the days, cycles of destiny, the law of karma, the houses of the horoscope and the nine planets",
+            "Find factual information based on ancient Thai astrology about people born on {{Generate Days}} on the topic {{Generate Idea}}\n\nConditions:\n- Use ancient Thai astrology only\n- Do not use Chinese or Western astrology\n- No introduction, no summary"),
 
         llm_step("Rewrite Content", 3, "gpt-4o", RAINBOW_REWRITE_SYSTEM, RAINBOW_REWRITE_USER),
 
         llm_step("Generate Title", 4, "gpt-4o-mini",
             SEO_CAPTION_SYSTEM_TH,
-            "จากเนื้อหาวิดีโอนี้:\n{{Rewrite Content}}\n\nสร้าง:\n1. title (ไม่เกิน 60 ตัวอักษร)\n2. description (ไม่เกิน 150 ตัวอักษร) พร้อม 3-4 แฮชแท็ก ปิดท้ายด้วย #เสียงจากวันวาน\n\nตอบในรูปแบบ JSON:\n{\"title\": \"\", \"description\": \"\"}"),
+            "From this video content:\n{{Rewrite Content}}\n\nCreate:\n1. title (no more than 60 characters)\n2. description (no more than 150 characters) with 3-4 hashtags, ending with #EchoesOfYesterday\n\nReply in JSON format:\n{\"title\": \"\", \"description\": \"\"}"),
 
         dt_insert_step(5, "siang-jak-wanwan-content", {
             "days": "{{Generate Days}}",
@@ -733,56 +733,56 @@ WORKFLOWS.append({
     ],
 })
 
-# ─── 13. ถอดรหัสลับวันเกิด (Numerology Video) ─────────────────
+# ─── 13. Birthday Code Decoder (Numerology Video) ─────────────────
 
-NUMEROLOGY_REWRITE_SYSTEM = "คุณคือผู้เชี่ยวชาญด้านศาสตร์ตัวเลข Numerology ตามแนวพีทาโกรัส และจิตวิทยา สื่อสารเก่ง เข้าใจลึกซึ้ง และเล่าเรื่องได้ชวนติดตาม สามารถถ่ายทอดพลังของตัวเลขให้เข้าใจง่าย สนุก และจุดประกายความคิดในใจผู้อ่าน"
+NUMEROLOGY_REWRITE_SYSTEM = "You are an expert in Pythagorean numerology and psychology. You communicate well, understand deeply and tell captivating stories. You can make the power of numbers easy to understand and fun, and spark new ideas in the reader's mind"
 
-NUMEROLOGY_REWRITE_USER = """เขียนสคริปต์วิดีโอสั้นจากข้อมูลต่อไปนี้ โดยแบ่งเป็น 5 ส่วน:
+NUMEROLOGY_REWRITE_USER = """Write a short video script from the following information, split into 5 parts:
 
-1. Hook - เปิดด้วยคำถามชวนสงสัย เช่น "คนเกิดวันที่นี้กำลังจะ..." (ยังไม่เฉลยวันที่)
-2. เฉลยวันที่ - เฉลยว่าคือวันที่ {{Generate Days}} พร้อมอธิบายตามหลัก Numerology พลังสั่นสะเทือนของตัวเลข
-3. มุมจิตวิญญาณ - เสริมมุมมองด้านจิตวิญญาณและพลังตัวเลข
-4. ให้กำลังใจ - ปิดด้วยข้อความให้กำลังใจ
-5. CTA - "ชอบเรื่องดวง กดติดตามช่องนี้ได้เลยค่ะ"
+1. Hook - Open with an intriguing question, for example "People born on this date are about to..." (do not reveal the date yet)
+2. Date reveal - Reveal that it is the {{Generate Days}} and explain it using numerology and the vibrational energy of numbers
+3. Spiritual angle - Add a spiritual perspective and the energy of numbers
+4. Encouragement - Close with an encouraging message
+5. CTA - "If you love all things fortune, follow this channel"
 
-ข้อมูลต้นฉบับ:
+Source information:
 {{Research Content}}
 
-เงื่อนไข:
-- ความยาวไม่เกิน 1,000 ตัวอักษร
-- ใช้ภาษาพูดที่ลื่นไหล เป็นธรรมชาติ
-- คุณเป็นผู้หญิง ลงท้ายด้วย ค่ะ/คะ
-- ห้ามใส่เครื่องหมายพิเศษใดๆ
-- ตอบเฉพาะสคริปต์เท่านั้น"""
+Conditions:
+- No more than 1,000 characters
+- Write in English, in a flowing, natural conversational style
+- You are a woman, so write in a female voice
+- Do not use any special symbols
+- Reply with the script only"""
 
 WORKFLOWS.append({
     "workflow": {
         "id": "wanwan-video-dates",
         "page_id": "siang-jak-wanwan",
-        "name": "ถอดรหัสลับวันเกิด - ทำนายดวงวันที่เกิด",
+        "name": "Birthday Code Decoder - Birth Date Horoscope",
         "description": "Birth date numerology video pipeline",
         "language": "Thai",
         "active": False,
     },
     "steps": [
         llm_step("Generate Days", 0, "gpt-4o-mini", "",
-            "สุ่มตอบวันที่เกิด 1-31\n\nเงื่อนไขสำคัญ :\n- ตอบเฉพาะตัวเลขเท่านั้น ไม่ต้อง intro ไม่ต้อง outro ไม่ต้องทวนคำสั่ง\n- ห้ามใส่เครื่องหมายใดๆ\n- ห้ามตอบซ้ำกับข้อมูลที่มีอยู่: {{datatable}}",
+            "Randomly pick a birth date from 1-31\n\nImportant conditions :\n- Reply with the number only. No intro, no outro, do not repeat the instructions\n- Do not use any punctuation or symbols\n- Do not repeat anything already in the existing data: {{datatable}}",
             lookup_table_id="thodrahat-lab-wankerd-content"),
 
         llm_step("Generate Idea", 1, "gemini-2.0-flash",
-            "คุณคือผู้เชี่ยวชาญด้าน Numerology หรือศาสตร์ตัวเลขแบบสากลตามแนวพีทาโกรัส เชี่ยวชาญการวิเคราะห์นิสัย บุคลิก จุดแข็ง จุดอ่อน และจังหวะชีวิตจาก \"วันที่เกิด 1-31\" โดยอธิบายผ่านพลังสั่นสะเทือนของตัวเลข สามารถเชื่อมโยงพลังตัวเลขกับเรื่องความรัก การงาน การเงิน การเปลี่ยนแปลงชีวิต และเป้าหมายชีวิตได้",
-            "สร้างไอเดียคอนเทนต์ 1 ไอเดีย สำหรับคนเกิดวันที่ {{Generate Days}}\n\nหัวข้อให้เลือก: ความรัก, การงาน, การเงิน, โชคลาภ, การเปลี่ยนแปลงชีวิต, สุขภาพ, โอกาสใหม่ๆ, ความสำเร็จ\n\nเงื่อนไข:\n- ประโยคเดียว ไม่เกิน 50 ตัวอักษร\n- อ้างอิงเฉพาะหลัก Numerology\n- ห้ามซ้ำกับข้อมูลที่มี: {{datatable}}\n- ห้ามใส่เครื่องหมายใดๆ",
+            "You are an expert in universal Pythagorean numerology, specializing in analyzing personality, character, strengths, weaknesses and the rhythm of life from the \"birth date 1-31\", explained through the vibrational energy of numbers. You can connect the energy of numbers to love, work, money, life changes and life goals",
+            "Create 1 content idea for people born on the {{Generate Days}}\n\nTopics to choose from: love, work, money, luck, life changes, health, new opportunities, success\n\nConditions:\n- One sentence, no more than 50 characters\n- Reference numerology principles only\n- Do not repeat anything already in the existing data: {{datatable}}\n- Do not use any punctuation or symbols",
             lookup_table_id="thodrahat-lab-wankerd-content"),
 
         llm_step("Research Content", 2, "gemini-2.0-flash",
-            "คุณเป็นนักวิจัยและผู้เชี่ยวชาญด้านศาสตร์ตัวเลข Numerology ตามแนวพีทาโกรัสแบบสากล มีความเชี่ยวชาญในการวิเคราะห์นิสัย พลังชีวิต แนวโน้มชะตา จุดแข็ง จุดอ่อน และจังหวะการเปลี่ยนแปลงชีวิตจาก \"วันที่เกิด 1-31\" อ้างอิงหลัก: ความหมายของเลขเดี่ยว 1-9, การลดเลขให้เหลือเลขรากฐาน, พลังของเลขซ้ำ, การสั่นสะเทือนของตัวเลข, วงจรชีวิตตามตัวเลข ห้ามใช้โหราศาสตร์ไทย พระเวท ดาวเคราะห์ ฤกษ์ยาม หรือศาสตร์อื่นใดมาผสม",
-            "ค้นหาข้อมูลเชิงข้อเท็จจริงตามหลัก Numerology เกี่ยวกับคนเกิดวันที่ {{Generate Days}} ตามหัวข้อ {{Generate Idea}}\n\nเงื่อนไข:\n- ใช้เฉพาะหลัก Numerology ตามแนวพีทาโกรัส\n- ห้ามใช้โหราศาสตร์อื่นมาผสม\n- ห้ามเกริ่นนำ ห้ามสรุป"),
+            "You are a researcher and expert in universal Pythagorean numerology, with expertise in analyzing personality, life force, destiny trends, strengths, weaknesses and the timing of life changes from the \"birth date 1-31\". Principles to reference: the meaning of single digits 1-9, reducing numbers to their root number, the power of repeated numbers, the vibration of numbers, and numerological life cycles. Do not mix in Thai astrology, Vedic teachings, planets, auspicious timing or any other discipline",
+            "Find factual information based on numerology about people born on the {{Generate Days}} on the topic {{Generate Idea}}\n\nConditions:\n- Use Pythagorean numerology only\n- Do not mix in any other kind of astrology\n- No introduction, no summary"),
 
         llm_step("Rewrite Content", 3, "gpt-4o", NUMEROLOGY_REWRITE_SYSTEM, NUMEROLOGY_REWRITE_USER),
 
         llm_step("Generate Title", 4, "gpt-4o-mini",
             SEO_CAPTION_SYSTEM_TH,
-            "จากเนื้อหาวิดีโอนี้:\n{{Rewrite Content}}\n\nสร้าง:\n1. title (ไม่เกิน 60 ตัวอักษร)\n2. description (ไม่เกิน 150 ตัวอักษร) พร้อม 3-4 แฮชแท็ก ปิดท้ายด้วย #เสียงจากวันวาน\n\nตอบในรูปแบบ JSON:\n{\"title\": \"\", \"description\": \"\"}"),
+            "From this video content:\n{{Rewrite Content}}\n\nCreate:\n1. title (no more than 60 characters)\n2. description (no more than 150 characters) with 3-4 hashtags, ending with #EchoesOfYesterday\n\nReply in JSON format:\n{\"title\": \"\", \"description\": \"\"}"),
 
         dt_insert_step(5, "thodrahat-lab-wankerd-content", {
             "dates": "{{Generate Days}}",
@@ -800,13 +800,13 @@ WORKFLOWS.append({
     ],
 })
 
-# ─── 14. Image Post เสียงจากวันวาน ─────────────────────────────
+# ─── 14. Image Post Echoes of Yesterday ─────────────────────────────
 
 WORKFLOWS.append({
     "workflow": {
         "id": "wanwan-image",
         "page_id": "siang-jak-wanwan",
-        "name": "เสียงจากวันวาน - Image Post",
+        "name": "Echoes of Yesterday - Image Post",
         "description": "Thai birth day/date image post pipeline",
         "language": "Thai",
         "active": False,
